@@ -16,21 +16,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class MedicalServiceImplTest {
-    static PatientInfoFileRepository patientInfoFileRepository;
-    static SendAlertService sendAlertService;
-    static MedicalService medicalService;
-    static PatientInfo patientInfo;
+    private SendAlertService sendAlertService;
+    private MedicalService medicalService;
 
     @BeforeEach
     public void initialize() {
-        patientInfoFileRepository = mock(PatientInfoFileRepository.class);
+        PatientInfoFileRepository patientInfoFileRepository = mock(PatientInfoFileRepository.class);
         sendAlertService = mock(SendAlertServiceImpl.class);
         medicalService = new MedicalServiceImpl(patientInfoFileRepository, sendAlertService);
         LocalDate birthday = LocalDate.of(1996, 12, 24);
         BloodPressure normalBloodPressure = new BloodPressure(120, 80);
         BigDecimal normalTemperature = new BigDecimal("36.6");
         HealthInfo healthInfo = new HealthInfo(normalTemperature, normalBloodPressure);
-        patientInfo = new PatientInfo("Pavel", "Martakov", birthday, healthInfo);
+        PatientInfo patientInfo = new PatientInfo("Pavel", "Martakov", birthday, healthInfo);
         when(patientInfoFileRepository.getById(anyString())).thenReturn(patientInfo);
     }
 
